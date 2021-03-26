@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from django.contrib.messages import constants as messages
 from pathlib import Path
 import os
+from os import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'rhy#29_$%hlqh-_$jtqdpuw8n9)!7u(f!dsg9=algf^x6ty&_$'
+# SECRET_KEY = 'rhy#29_$%hlqh-_$jtqdpuw8n9)!7u(f!dsg9=algf^x6ty&_$'
+SECRET_KEY = os.environ.get('SECRET_KEY')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['tboy1234.pythonanywhere.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1','tmonyhousing.herokuapp.com']
 
 
 # Application definition
@@ -44,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'whitenoise.runserver_nostatic',
 ]  
 
 MIDDLEWARE = [
@@ -54,7 +59,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 ROOT_URLCONF = 'realEstate.urls'
 
@@ -90,7 +98,8 @@ DATABASES = {
     }
 }
 
-
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -157,3 +166,6 @@ EMAIL_PORT= 587
 EMAIL_HOST_USER= 'tmonyadetula@gmail.com' 
 EMAIL_HOST_PASSWORD= 'tmony408'
 EMAIL_USE_TLS= True
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
