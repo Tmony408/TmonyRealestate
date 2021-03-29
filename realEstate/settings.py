@@ -13,7 +13,6 @@ from django.contrib.messages import constants as messages
 from pathlib import Path
 import os
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,11 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'rhy#29_$%hlqh-_$jtqdpuw8n9)!7u(f!dsg9=algf^x6ty&_$'
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [' 192.168.0.103', 'localhost','127.0.0.1']
 
 
 # Application definition
@@ -46,7 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'whitenoise.runserver_nostatic',
 ]  
 
 MIDDLEWARE = [
@@ -57,10 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-
-
 
 ROOT_URLCONF = 'realEstate.urls'
 
@@ -132,7 +126,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
@@ -163,6 +157,3 @@ EMAIL_PORT= 587
 EMAIL_HOST_USER= 'tmonyadetula@gmail.com' 
 EMAIL_HOST_PASSWORD= 'tmony408'
 EMAIL_USE_TLS= True
-
-
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
