@@ -26,7 +26,7 @@ SECRET_KEY = 'rhy#29_$%hlqh-_$jtqdpuw8n9)!7u(f!dsg9=algf^x6ty&_$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tboy1234.pythonanywhere.com']
+ALLOWED_HOSTS = [' 192.168.0.103', 'localhost','127.0.0.1']
 
 
 # Application definition
@@ -126,7 +126,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
